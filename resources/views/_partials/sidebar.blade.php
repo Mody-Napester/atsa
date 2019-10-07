@@ -28,7 +28,13 @@
                     <a href="{{ route('users.index') }}" class="waves-effect"><i class="ti-user"></i> <span> Users </span></a>
                 </li>
                 <li class="has_sub">
-                    <a href="{{ route('leads.index') }}" class="waves-effect"><i class="ti-archive"></i> <span> Leads </span></a>
+                    <a href="{{ route('companies.index') }}" class="waves-effect"><i class="ti-marker"></i> <span> Companies </span></a>
+                </li>
+                <li class="has_sub">
+                    <a href="{{ route('clients.index') }}" class="waves-effect"><i class="ti-briefcase"></i> <span> Clients </span></a>
+                </li>
+                <li class="has_sub">
+                    <a href="{{ route('activities.index') }}" class="waves-effect"><i class="ti-archive"></i> <span> Activities </span></a>
                 </li>
 
             </ul>
