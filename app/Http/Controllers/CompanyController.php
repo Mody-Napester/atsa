@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\User;
+use Validator;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -28,11 +30,12 @@ class CompanyController extends Controller
      */
     public function index()
     {
-//        if (!User::hasAuthority('index.leads')){
-//            return redirect('/');
-//        }
+        if (!User::hasAuthority('index.companies')){
+            return redirect('/');
+        }
+
         $data['resources'] = Company::all();
-        return view('leads.index', $data);
+        return view('companies.index', $data);
     }
 
     /**
@@ -44,15 +47,17 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         // Check permissions
-        if (!User::hasAuthority('index.leads')){
+        if (!User::hasAuthority('store.companies')){
             return redirect('/');
         }
 
         // Check validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:leads',
+            'email' => 'required|string|email|max:255|unique:companies',
             'phone' => 'required|max:20',
+            'website' => 'required',
+            'address' => 'required',
         ]);
 
         if ($validator->fails()){
@@ -64,6 +69,9 @@ class CompanyController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'website' => $request->website,
+            'address' => $request->address,
+            'comments' => $request->comments,
             'created_by' => auth()->user()->id,
         ]);
 
@@ -95,7 +103,7 @@ class CompanyController extends Controller
         $data['resource'] = Company::getBy('uuid', $uuid);
         return response([
             'title'=> "Update resource " . $data['resource']->name,
-            'view'=> view('leads.edit', $data)->render(),
+            'view'=> view('companies.edit', $data)->render(),
         ]);
     }
 
@@ -116,8 +124,10 @@ class CompanyController extends Controller
         // Check validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:leads,email,' . $resource->id,
+            'email' => 'required|string|email|max:255|unique:companies,email,' . $resource->id,
             'phone' => 'required|max:20',
+            'website' => 'required',
+            'address' => 'required',
         ]);
 
         if ($validator->fails()){
@@ -129,6 +139,9 @@ class CompanyController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'website' => $request->website,
+            'address' => $request->address,
+            'comments' => $request->comments,
             'updated_by' => auth()->user()->id
         ], $resource->id);
 
