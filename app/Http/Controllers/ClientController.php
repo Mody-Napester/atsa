@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Company;
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class ClientController extends Controller
         }
 
         $data['resources'] = Client::all();
+        $data['companies'] = Company::all();
         return view('clients.index', $data);
     }
 
@@ -70,12 +72,12 @@ class ClientController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'type' => $request->type,
-            'address' => $request->address,
-            'comments' => $request->comments,
-            'company' => $request->company_id,
-            'country' => $request->country_id,
-            'city' => $request->city_id,
-            'area' => $request->area_id,
+            'address' => (($request->has('address'))? $request->address : ''),
+            'comments' => (($request->has('comments'))? $request->comments : ''),
+            'company' => (($request->has('company'))? $request->company_id : ''),
+            'country' => (($request->has('country'))? $request->country_id : ''),
+            'city' => (($request->has('city'))? $request->city_id : ''),
+            'area' => (($request->has('area'))? $request->area_id : ''),
             'created_by' => auth()->user()->id,
         ]);
 
@@ -98,9 +100,6 @@ class ClientController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  string  $uuid
-     * @return \Illuminate\Http\Response
      */
     public function edit($uuid)
     {
@@ -130,7 +129,7 @@ class ClientController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:clients,email,' . $resource->id,
             'phone' => 'required|max:20',
-            'website' => 'required',
+            'type' => 'required',
             'address' => 'required',
         ]);
 
@@ -143,9 +142,13 @@ class ClientController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'website' => $request->website,
-            'address' => $request->address,
-            'comments' => $request->comments,
+            'type' => $request->type,
+            'address' => (($request->has('address'))? $request->address : ''),
+            'comments' => (($request->has('comments'))? $request->comments : ''),
+            'company' => (($request->has('company'))? $request->company_id : ''),
+            'country' => (($request->has('country'))? $request->country_id : ''),
+            'city' => (($request->has('city'))? $request->city_id : ''),
+            'area' => (($request->has('area'))? $request->area_id : ''),
             'updated_by' => auth()->user()->id
         ], $resource->id);
 

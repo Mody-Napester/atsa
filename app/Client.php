@@ -11,10 +11,12 @@ class Client extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'phone', 'email',
-        'company_id', 'type', 'country_id',
-        'city_id', 'area_id', 'address',
-        'comments', 'created_by', 'updated_by'];
+    protected $fillable = [
+        'name', 'phone', 'email',
+        'company_id', 'type', 'comments',
+        'country_id', 'city_id', 'area_id', 'address',
+        'created_by', 'updated_by'
+    ];
 
     /**
      *  Setup model event hooks

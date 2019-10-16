@@ -50,7 +50,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th>Website</th>
+                            <th>Type</th>
                             <th>Address</th>
                             <th>Comments</th>
                             <th>Created by</th>
@@ -68,7 +68,7 @@
                             <td>{{ $resource->name }}</td>
                             <td>{{ $resource->email }}</td>
                             <td>{{ $resource->phone }}</td>
-                            <td>{{ $resource->website }}</td>
+                            <td>{{ $resource->type }}</td>
                             <td>{{ $resource->address }}</td>
                             <td>{{ $resource->comments }}</td>
                             <td>{{ $resource->createdBy->name }}</td>

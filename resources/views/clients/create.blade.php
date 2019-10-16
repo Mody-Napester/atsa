@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="" for="email">Email</label>
-                <input type="email" id="email" autocomplete="off" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus/>
+                <input type="email" id="email" autocomplete="off" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required/>
 
                 @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert">
@@ -40,12 +40,12 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="" for="website">Website</label>
-                <input id="website" type="text" autocomplete="off" class="form-control{{ $errors->has('website') ? ' is-invalid' : '' }}" name="website" value="{{ old('website') }}" required>
+                <label class="" for="type">Type</label>
+                <input id="type" type="text" autocomplete="off" class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}" name="type" value="{{ old('type') }}" required>
 
-                @if ($errors->has('website'))
+                @if ($errors->has('type'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('website') }}</strong>
+                        <strong>{{ $errors->first('type') }}</strong>
                     </span>
                 @endif
             </div>
@@ -70,6 +70,22 @@
                 @if ($errors->has('comments'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('comments') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="" for="company">Company</label>
+                <select id="company" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }}" name="company" required>
+                    @foreach($companies as $company)
+                        <option value="{{$company->id}}">{{ $company->name }}</option>
+                    @endforeach
+                </select>
+
+                @if ($errors->has('company'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('company') }}</strong>
                     </span>
                 @endif
             </div>
