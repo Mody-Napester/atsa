@@ -67,8 +67,8 @@
                                         <span class="label {{ $role->class }}">{{ $role->name }}</span>
                                     @endforeach
                                 </td>
-                                <td>{{ $resource->createdBy->name }}</td>
-                                <td>{{ $resource->updatedBy->name }}</td>
+                                <td>{{ ($resource->createdBy)? $resource->createdBy->name : '-' }}</td>
+                                <td>{{ ($resource->updatedBy)? $resource->updatedBy->name : '-' }}</td>
                                 <td>{{ $resource->created_at }}</td>
                                 <td>{{ $resource->updated_at }}</td>
                                 <td>
