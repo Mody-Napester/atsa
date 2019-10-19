@@ -77,4 +77,53 @@ class Activity extends Model
         return $this->belongsTo('App\User', 'updated_by');
 
     }
+
+    /**
+     *  Relationship with users
+     */
+    public function projectManager()
+    {
+        return $this->belongsTo('App\User', 'project_manger_id');
+
+    }
+
+    /**
+     *  Relationship with client
+     */
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
+
+    /**
+     *  Relationship with Language
+     */
+    public function langFrom()
+    {
+        return $this->belongsTo('App\Language', 'lang_from');
+    }
+
+    /**
+     *  Relationship with Language
+     */
+    public function langTo()
+    {
+        return $this->belongsTo('App\Language', 'lang_to');
+    }
+
+    /**
+     *  Relationship with Activity Status
+     */
+    public function activityStatus()
+    {
+        return $this->belongsTo('App\ActivityStatus');
+    }
+
+    /**
+     *  Relationship with Activity Payment
+     */
+    public function payments()
+    {
+        return $this->hasMany(ActivityPayment::class);
+    }
 }

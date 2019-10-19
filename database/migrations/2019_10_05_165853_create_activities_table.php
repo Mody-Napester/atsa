@@ -20,6 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->integer('project_manger_id');
             $table->integer('activity_status_id');
             $table->string('num_of_words');
+            $table->string('num_of_papers');
             $table->string('lang_from');
             $table->string('lang_to');
             $table->string('task_name');

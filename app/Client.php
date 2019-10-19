@@ -78,4 +78,13 @@ class Client extends Model
         return $this->belongsTo('App\User', 'updated_by');
 
     }
+
+    /**
+     *  Relationship with company
+     */
+    public function company()
+    {
+        return $this->belongsTo('App\Company');
+
+    }
 }

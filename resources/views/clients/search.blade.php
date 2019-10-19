@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('clients.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('companies.store') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="row">
@@ -77,7 +77,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label class="" for="company">Company</label>
-                <select id="company" class="select2 form-control{{ $errors->has('company') ? ' is-invalid' : '' }}" name="company">
+                <select id="company" class="select2 form-control{{ $errors->has('company') ? ' is-invalid' : '' }}" name="company" required>
                     @foreach($companies as $company)
                         <option value="{{$company->id}}">{{ $company->name }}</option>
                     @endforeach
@@ -94,8 +94,8 @@
 
     <div class="form-group m-b-0">
         <div>
-            <button type="submit" class="btn btn-primary waves-effect waves-light">
-                <i class="fa fa-fw fa-save"></i> Save
+            <button type="submit" class="btn btn-success waves-effect waves-light">
+                <i class="fa fa-fw fa-search"></i> Search
             </button>
         </div>
     </div>

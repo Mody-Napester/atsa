@@ -74,10 +74,10 @@ class ClientController extends Controller
             'type' => $request->type,
             'address' => (($request->has('address'))? $request->address : ''),
             'comments' => (($request->has('comments'))? $request->comments : ''),
-            'company' => (($request->has('company'))? $request->company_id : ''),
-            'country' => (($request->has('country'))? $request->country_id : ''),
-            'city' => (($request->has('city'))? $request->city_id : ''),
-            'area' => (($request->has('area'))? $request->area_id : ''),
+            'company_id' => (($request->has('company'))? $request->company : 0),
+            'country_id' => (($request->has('country'))? $request->country : 0),
+            'city_id' => (($request->has('city'))? $request->city : 0),
+            'area_id' => (($request->has('area'))? $request->area : 0),
             'created_by' => auth()->user()->id,
         ]);
 
@@ -145,10 +145,10 @@ class ClientController extends Controller
             'type' => $request->type,
             'address' => (($request->has('address'))? $request->address : ''),
             'comments' => (($request->has('comments'))? $request->comments : ''),
-            'company' => (($request->has('company'))? $request->company_id : ''),
-            'country' => (($request->has('country'))? $request->country_id : ''),
-            'city' => (($request->has('city'))? $request->city_id : ''),
-            'area' => (($request->has('area'))? $request->area_id : ''),
+            'company_id' => (($request->has('company'))? $request->company : 0),
+            'country_id' => (($request->has('country'))? $request->country : 0),
+            'city_id' => (($request->has('city'))? $request->city : 0),
+            'area_id' => (($request->has('area'))? $request->area : 0),
             'updated_by' => auth()->user()->id
         ], $resource->id);
 

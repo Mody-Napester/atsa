@@ -7,6 +7,9 @@
     <!-- Page-Title -->
     <div class="row">
         <div class="col-sm-12">
+            <div class="btn-group pull-right m-t-15">
+                <a href="#goToAll" class="btn btn-warning waves-effect waves-light">Show All <i class="fa fa-fw fa-arrow-down"></i></a>
+            </div>
 
             <h4 class="page-title">Clients</h4>
             <ol class="breadcrumb">
@@ -18,24 +21,30 @@
         </div>
     </div>
 
+
     <div class="row">
         <div class="col-lg-12">
-            <div class="card-box">
-                <!-- Create new -->
-                <h4 class="m-t-0 header-title">Create new Client</h4>
-                <p class="text-muted font-14 m-b-30">
-                    Create new resource from here.
-                </p>
-
-                @include('clients.create')
+            <ul class="nav nav-tabs navtab-bg nav-justified">
+                <li class="nav-item">
+                    <a href="#searchResource" data-toggle="tab" aria-expanded="false" class="nav-link active">Search and filter</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#createResource" data-toggle="tab" aria-expanded="true" class="nav-link">Create new</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="searchResource">
+                    @include('clients.search')
+                </div>
+                <div class="tab-pane" id="createResource">
+                    @include('clients.create')
+                </div>
             </div>
         </div>
         <!-- end card-box -->
     </div>
-    <!-- end row -->
 
-
-    <div class="row">
+    <div class="row" id="goToAll">
         <div class="col-lg-12">
             <div class="card-box table-responsive">
                 <h4 class="m-t-0 header-title">All Clients</h4>
@@ -51,8 +60,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Type</th>
-                            <th>Address</th>
-                            <th>Comments</th>
+                            <th>Company</th>
                             <th>Created by</th>
                             <th>Updated by</th>
                             <th>Created at</th>
@@ -69,8 +77,7 @@
                             <td>{{ $resource->email }}</td>
                             <td>{{ $resource->phone }}</td>
                             <td>{{ $resource->type }}</td>
-                            <td>{{ $resource->address }}</td>
-                            <td>{{ $resource->comments }}</td>
+                            <td>{{ ($resource->company)? $resource->company->name : '-' }}</td>
                             <td>{{ $resource->createdBy->name }}</td>
                             <td>{{ ($resource->updatedBy)? $resource->updatedBy->name : '-' }}</td>
                             <td>{{ $resource->created_at }}</td>
@@ -104,25 +111,25 @@
                 {
                     extend: 'copyHtml5',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                     }
                 },
                 {
                     extend: 'excelHtml5',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                     }
                 },
                 {
                     extend: 'pdfHtml5',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                     }
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                     }
                 }
             ],

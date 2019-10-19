@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
 use App\ActivityPayment;
+use App\ActivityPaymentStatus;
+use App\User;
+use Validator;
 use Illuminate\Http\Request;
 
 class ActivityPaymentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the specified resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show($activity)
     {
-        //
-    }
+        if (!User::hasAuthority('show.activities')){
+            return redirect('/');
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data['activity'] = Activity::getBy('uuid', $activity);
+        $data['payment_statuses'] = ActivityPaymentStatus::all();
+        return view('activities.payments.show', $data);
     }
 
     /**
@@ -33,53 +33,38 @@ class ActivityPaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $activity)
     {
-        //
-    }
+        // Check permissions
+        if (!User::hasAuthority('store.activities')){
+            return redirect('/');
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ActivityPayment  $activityPayment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ActivityPayment $activityPayment)
-    {
-        //
-    }
+        $activity = Activity::getBy('uuid', $activity);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ActivityPayment  $activityPayment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ActivityPayment $activityPayment)
-    {
-        //
-    }
+        // Check validation
+        $validator = Validator::make($request->all(), [
+            'activity_payment_status' => 'required',
+            'amount' => 'required',
+            'effect' => 'required',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ActivityPayment  $activityPayment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ActivityPayment $activityPayment)
-    {
-        //
-    }
+        if ($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ActivityPayment  $activityPayment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ActivityPayment $activityPayment)
-    {
-        //
+        // Do Code
+        $resource = ActivityPayment::store([
+            'activity_id'=> $activity->id,
+            'activity_payment_status_id'=> $request->activity_payment_status,
+            'amount'=> $request->amount,
+            'effect'=> $request->effect,
+            'created_by' => auth()->user()->id,
+        ]);
+
+        // Return
+        if ($resource){
+            return back();
+        }
     }
 }

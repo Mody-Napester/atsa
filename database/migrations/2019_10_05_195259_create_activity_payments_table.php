@@ -15,9 +15,11 @@ class CreateActivityPaymentsTable extends Migration
     {
         Schema::create('activity_payments', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid');
             $table->integer('activity_id');
             $table->integer('activity_payment_status_id');
             $table->string('amount');
+            $table->boolean('effect')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

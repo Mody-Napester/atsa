@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('companies.update', $resource->uuid) }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('clients.update', $resource->uuid) }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
 
@@ -41,12 +41,12 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="" for="website">Website</label>
-                <input id="website" type="text" autocomplete="off" class="form-control{{ $errors->has('website') ? ' is-invalid' : '' }}" name="website" value="{{ $resource->website }}" required>
+                <label class="" for="type">Type</label>
+                <input id="type" type="text" autocomplete="off" class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}" name="type" value="{{ $resource->type }}" required>
 
-                @if ($errors->has('website'))
+                @if ($errors->has('type'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('website') }}</strong>
+                        <strong>{{ $errors->first('type') }}</strong>
                     </span>
                 @endif
             </div>
@@ -71,6 +71,22 @@
                 @if ($errors->has('comments'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('comments') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="" for="company">Company</label>
+                <select id="company" class="select2 form-control{{ $errors->has('company') ? ' is-invalid' : '' }}" name="company" required>
+                    @foreach($companies as $company)
+                        <option @if($company->id == $resource->company_id) selected @endif value="{{$company->id}}">{{ $company->name }}</option>
+                    @endforeach
+                </select>
+
+                @if ($errors->has('company'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('company') }}</strong>
                     </span>
                 @endif
             </div>

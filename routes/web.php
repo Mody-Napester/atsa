@@ -28,4 +28,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'auth'],function (){
     Route::resource('companies', 'CompanyController');
     Route::resource('clients', 'ClientController');
     Route::resource('activities', 'ActivityController');
+
+    Route::get('activity-payments/{activity}', 'ActivityPaymentController@show')->name('activity-payments.show');
+    Route::post('activity-payments/{activity}', 'ActivityPaymentController@store')->name('activity-payments.store');
 });

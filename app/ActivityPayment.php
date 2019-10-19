@@ -11,7 +11,7 @@ class ActivityPayment extends Model
      *
      * @var array
      */
-    protected $fillable = ['activity_id', 'activity_payment_status_id', 'amount', 'created_by', 'updated_by'];
+    protected $fillable = ['activity_id', 'activity_payment_status_id', 'amount', 'effect', 'created_by', 'updated_by'];
 
     /**
      *  Setup model event hooks
@@ -66,11 +66,18 @@ class ActivityPayment extends Model
     }
 
     /**
-     *  Relationship with users
+     *  Relationship with Activity
      */
-    public function updatedBy()
+    public function activity()
     {
-        return $this->belongsTo('App\User', 'updated_by');
+        return $this->belongsTo('App\Activity');
+    }
 
+    /**
+     *  Relationship with Activity Payment Status
+     */
+    public function activityPaymentStatus()
+    {
+        return $this->belongsTo('App\ActivityPaymentStatus');
     }
 }
